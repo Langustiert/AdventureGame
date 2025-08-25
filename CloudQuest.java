@@ -35,9 +35,9 @@ public class CloudQuest {
     void intro() {
         Scene s = new Scene("Prolog: Der Auftrag",
                 "Dein Startup hat den Zuschlag für eine europaweite Plattform erhalten. " +
-                "Du musst Architektur-Entscheidungen treffen. Jede Wahl beeinflusst Budget, Sicherheit, Agilität und Zuverlässigkeit.");
+                        "Du musst Architektur-Entscheidungen treffen. Jede Wahl beeinflusst Budget, Sicherheit, Agilität und Zuverlässigkeit.");
 
-        s.add(new Choice("A", "Zeit für einen Architektur-Workshop (↑ Wissen, - kleines Budget)", () -> {
+        s.add(new Choice("A", "Zeit für einen Architektur-Workshop (↑ Wissen, - kleines Budget)", "Workshop", () -> {
             player.adjust(+10, -5, 0, 0, 0);
             player.addItem("Workshop-Notizen");
         }));
@@ -51,15 +51,15 @@ public class CloudQuest {
     void serviceModels() {
         Scene s = new Scene("Kapitel 1: Servicemodelle",
                 "Welche Abstraktionsebene wählst du? IaaS bietet volle Kontrolle; PaaS beschleunigt Entwicklung; " +
-                "SaaS konsumiert fertige Software; FaaS (Serverless) skaliert ereignisgetrieben.");
+                        "SaaS konsumiert fertige Software; FaaS (Serverless) skaliert ereignisgetrieben.");
 
-        s.add(new Choice("1", "IaaS: Virtuelle Maschinen & Netzwerke selbst managen",
+        s.add(new Choice("A", "IaaS: Virtuelle Maschinen & Netzwerke selbst managen",
                 () -> { player.adjust(+8, -15, +5, -5, +5); player.addItem("IaaS-Playbook"); }));
-        s.add(new Choice("2", "PaaS: Managed Runtimes & Datenbanken",
+        s.add(new Choice("B", "PaaS: Managed Runtimes & Datenbanken",
                 () -> { player.adjust(+12, -10, +3, +8, +5); player.addItem("PaaS-Vertrag"); }));
-        s.add(new Choice("3", "SaaS: Fertige App einkaufen (z. B. CRM)",
+        s.add(new Choice("C", "SaaS: Fertige App einkaufen (z. B. CRM)",
                 () -> { player.adjust(+6, -8, +2, +10, +4); player.addItem("SaaS-Lizenzen"); }));
-        s.add(new Choice("4", "FaaS/Serverless: Funktionen pro Aufruf bezahlen",
+        s.add(new Choice("D", "FaaS/Serverless: Funktionen pro Aufruf bezahlen",
                 () -> { player.adjust(+14, -6, +2, +12, +6); player.addItem("FaaS-Baukasten"); }));
 
         playScene(s);
@@ -83,13 +83,13 @@ public class CloudQuest {
         Scene s = new Scene("Kapitel 3: Sicherung & Datenschutz",
                 "Du musst DSGVO beachten, Daten schützen und Backups einrichten.");
 
-        s.add(new Choice("1", "Ende-zu-Ende-Verschlüsselung aktivieren (↑ Sicherheit, Kosten)",
+        s.add(new Choice("A", "Ende-zu-Ende-Verschlüsselung aktivieren (↑ Sicherheit, Kosten)",
                 () -> player.adjust(+8, -6, +12, -2, +4)));
-        s.add(new Choice("2", "3-2-1-Backup-Strategie umsetzen",
+        s.add(new Choice("B", "3-2-1-Backup-Strategie umsetzen",
                 () -> { player.adjust(+10, -8, +10, 0, +10); player.addItem("Immutable Backups"); }));
-        s.add(new Choice("3", "Datenlokation EU erzwingen (DSGVO)",
+        s.add(new Choice("C", "Datenlokation EU erzwingen (DSGVO)",
                 () -> player.adjust(+6, -4, +8, -1, +2)));
-        s.add(new Choice("4", "Zero-Trust-Zugriff & MFA einführen",
+        s.add(new Choice("D", "Zero-Trust-Zugriff & MFA einführen",
                 () -> player.adjust(+8, -5, +12, -1, +4)));
 
         playScene(s);
@@ -115,13 +115,13 @@ public class CloudQuest {
         Scene s = new Scene("Kapitel 5: Anwendungsbereiche & Einsatzszenarien",
                 "Wähle, welche Produktlinie zuerst live geht — jede verlangt andere Eigenschaften.");
 
-        s.add(new Choice("1", "Echtzeit-Analytics-Dashboard für IoT-Sensoren",
+        s.add(new Choice("A", "Echtzeit-Analytics-Dashboard für IoT-Sensoren",
                 () -> { player.adjust(+12, -10, +2, +8, +6); player.addItem("Stream-Processing"); }));
-        s.add(new Choice("2", "ML-Modell-Serving für Empfehlungen",
+        s.add(new Choice("B", "ML-Modell-Serving für Empfehlungen",
                 () -> { player.adjust(+14, -12, +2, +10, +6); player.addItem("Feature Store"); }));
-        s.add(new Choice("3", "Klassisches Web-CRM als SaaS integrieren",
+        s.add(new Choice("C", "Klassisches Web-CRM als SaaS integrieren",
                 () -> player.adjust(+8, -6, +2, +10, +6)));
-        s.add(new Choice("4", "Event-getriebene Serverless-API für Mobile App",
+        s.add(new Choice("D", "Event-getriebene Serverless-API für Mobile App",
                 () -> player.adjust(+12, -8, +2, +12, +6)));
 
         playScene(s);
@@ -152,18 +152,47 @@ public class CloudQuest {
         System.out.println("\nDanke fürs Spielen von CloudQuest. Spiele erneut und probiere andere Strategien aus!\n");
     }
 
+
+
     // --- Hilfsfunktionen ---
     void playScene(Scene s) {
+        String infoText = "Für genauere Informationen '(choice) info' eingeben. (z.B. 'A info')";
         System.out.println("\n== " + s.title + " ==");
-        System.out.println(wrap(s.description));
+        System.out.println(wrap(s.description+ "\n\n" + infoText));
+        showChoices(s);
+
+        while (true) {
+            System.out.print("\nDeine Wahl: ");
+            String choice = readChoiceKey(s.choices);
+
+            if (choice.endsWith("info")) {
+                String base = choice.substring(0, choice.length() - 4); // "Ainfo" -> "A"
+                for (Choice c : s.choices) {
+                    if (c.key.equalsIgnoreCase(base)) {
+                        System.out.println("\nInfo:\n" + wrap(c.info));
+                    }
+                }
+                // nur erneut die Choices anzeigen, nicht die Szenenbeschreibung
+                showChoices(s);
+                continue;
+            }
+
+            // Normale Auswahl
+            for (Choice c : s.choices) {
+                if (c.key.equalsIgnoreCase(choice)) {
+                    c.effect.run();
+                }
+            }
+            player.printStats();
+            break; // Szene beenden nach gültiger Auswahl
+        }
+    }
+
+    void showChoices(Scene s) {
         System.out.println();
         for (Choice c : s.choices) {
             System.out.printf("[%s] %s\n", c.key, c.text);
         }
-        System.out.print("\nDeine Wahl: ");
-        String choice = readChoiceKey(s.choices);
-        for (Choice c : s.choices) if (c.key.equalsIgnoreCase(choice)) c.effect.run();
-        player.printStats();
     }
 
     void randomEvent(String label, Runnable effect) {
@@ -178,12 +207,19 @@ public class CloudQuest {
         while (true) {
             String line = in.nextLine().trim();
             for (Choice c : choices) {
-                if (c.key.equalsIgnoreCase(line)) return c.key;
+                if (c.key.equalsIgnoreCase(line))
+                    return c.key;
+                else if (line.equalsIgnoreCase(c.key + " info"))
+                    return c.key + "info";
             }
-            System.out.print("Ungültige Eingabe. Bitte wähle ");
-            for (int i = 0; i < choices.size(); i++) {
-                System.out.print("[" + choices.get(i).key + "]" + (i < choices.size()-1 ? ", " : ": "));
-            }
+            invalidChoice(choices);
+        }
+    }
+
+    void invalidChoice(List<Choice> choices) {
+        System.out.print("Ungültige Eingabe. Bitte wähle ");
+        for (int i = 0; i < choices.size(); i++) {
+            System.out.print("[" + choices.get(i).key + "]" + (i < choices.size()-1 ? ", " : ": "));
         }
     }
 
@@ -196,7 +232,7 @@ public class CloudQuest {
     }
 
     static String wrap(String text) {
-        int width = 88;
+        int width = 100;
         StringBuilder sb = new StringBuilder();
         int count = 0;
         for (String word : text.split(" ")) {
