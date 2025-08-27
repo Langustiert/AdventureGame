@@ -1,0 +1,193 @@
+{
+  "chapters": [
+    {
+      "title": "Prolog: Der Auftrag",
+      "description": "Dein Startup hat den Zuschlag für eine europaweite Plattform erhalten. Du musst Architektur-Entscheidungen treffen. Jede Wahl beeinflusst Budget, Sicherheit, Agilität und Zuverlässigkeit.",
+      "choices": [
+        {
+          "key": "A",
+          "text": "Zeit für einen Architektur-Workshop (↑ Wissen, - kleines Budget)",
+          "info": "Workshop good",
+          "effect": { "knowledge": 10, "budget": -5, "security": 0, "agility": 0, "reliability": 0 },
+          "items": ["Workshop-Notizen"]
+        },
+        {
+          "key": "B",
+          "text": "Ohne Workshop direkt los (↑ Tempo, Risiko)",
+          "effect": { "knowledge": 0, "budget": 0, "security": -5, "agility": 5, "reliability": -5 }
+        }
+      ]
+    },
+    {
+      "title": "Kapitel 1: Servicemodelle",
+      "description": "Welche Abstraktionsebene wählst du? IaaS bietet volle Kontrolle; PaaS beschleunigt Entwicklung; SaaS konsumiert fertige Software; FaaS (Serverless) skaliert ereignisgetrieben.",
+      "choices": [
+        {
+          "key": "A",
+          "text": "IaaS: Virtuelle Maschinen & Netzwerke selbst managen",
+          "info": "IaaS → Infrastructure as a Service: Du mietest virtuelle Maschinen, Speicher und Netzwerke. Du hast volle Kontrolle, musst aber auch viel selbst einrichten.",
+          "effect": { "knowledge": 8, "budget": -15, "security": 5, "agility": -5, "reliability": 5 },
+          "items": ["IaaS-Playbook"]
+        },
+        {
+          "key": "B",
+          "text": "PaaS: Managed Runtimes & Datenbanken",
+          "info": "PaaS → Platform as a Service: Du bekommst fertige Plattformen für Datenbanken und Laufzeitumgebungen. Weniger Arbeit für dich, aber weniger Kontrolle.",
+          "effect": { "knowledge": 12, "budget": -10, "security": 3, "agility": 8, "reliability": 5 },
+          "items": ["PaaS-Vertrag"]
+        },
+        {
+          "key": "C",
+          "text": "SaaS: Fertige App einkaufen (z. B. CRM)",
+          "info": "SaaS → Software as a Service: Du nutzt fertige Apps wie E-Mail, CRM oder Office. Am schnellsten, aber am wenigsten anpassbar.",
+          "effect": { "knowledge": 6, "budget": -8, "security": 2, "agility": 10, "reliability": 4 },
+          "items": ["SaaS-Lizenzen"]
+        },
+        {
+          "key": "D",
+          "text": "FaaS/Serverless: Funktionen pro Aufruf bezahlen",
+          "info": "FaaS / Serverless → Function as a Service: Du schreibst nur kleine Funktionen. Die Cloud startet sie automatisch bei Bedarf. Ideal für unregelmäßige Last.",
+          "effect": { "knowledge": 14, "budget": -6, "security": 2, "agility": 12, "reliability": 6 },
+          "items": ["FaaS-Baukasten"]
+        }
+      ],
+      "randomEvent": {
+        "text": "Ein Provider bietet Gutschrift an",
+        "effect": { "knowledge": 0, "budget": 10, "security": 0, "agility": 0, "reliability": 0 }
+      }
+    },
+    {
+      "title": "Kapitel 2: Bereitstellungsmodelle",
+      "description": "Wo läuft deine Lösung? Public Cloud ist flexibel; Private Cloud gibt Kontrolle; Hybrid/Multi-Cloud balanciert Risiken.",
+      "choices": [
+        {
+          "key": "A",
+          "text": "Public Cloud",
+          "info": "Public Cloud → Alle Ressourcen laufen bei einem externen Anbieter (z. B. AWS, Azure, Google). Schnell verfügbar, flexibel, aber weniger Kontrolle.",
+          "effect": { "knowledge": 8, "budget": -8, "security": 2, "agility": 10, "reliability": 6 }
+        },
+        {
+          "key": "B",
+          "text": "Private Cloud im eigenen Rechenzentrum",
+          "info": "Private Cloud → Du betreibst die Cloud im eigenen Rechenzentrum. Mehr Sicherheit und Kontrolle, aber hohe Kosten und Wartung.",
+          "effect": { "knowledge": 6, "budget": -20, "security": 8, "agility": -6, "reliability": 6 }
+        },
+        {
+          "key": "C",
+          "text": "Hybrid Cloud (Workloads splitten)",
+          "info": "Hybrid Cloud → Kombination aus Public und Private Cloud. Du kannst Workloads flexibel verteilen, aber es ist komplexer.",
+          "effect": { "knowledge": 10, "budget": -12, "security": 6, "agility": 4, "reliability": 8 }
+        },
+        {
+          "key": "D",
+          "text": "Multi-Cloud (Vendor-Lock-in reduzieren)",
+          "info": "Multi-Cloud → Du nutzt mehrere Public-Cloud-Anbieter gleichzeitig. So vermeidest du Abhängigkeiten, musst aber alles gut koordinieren.",
+          "effect": { "knowledge": 12, "budget": -14, "security": 5, "agility": 2, "reliability": 10 },
+          "items": ["Abstraktionsschicht"]
+        }
+      ]
+    },
+    {
+      "title": "Kapitel 3: Sicherung & Datenschutz",
+      "description": "Du musst DSGVO beachten, Daten schützen und Backups einrichten.",
+      "choices": [
+        {
+          "key": "A",
+          "text": "Ende-zu-Ende-Verschlüsselung aktivieren (↑ Sicherheit, Kosten)",
+          "info": "Ende-zu-Ende-Verschlüsselung → Daten werden von Sender bis Empfänger verschlüsselt. Selbst der Cloud-Anbieter kann sie nicht lesen.",
+          "effect": { "knowledge": 8, "budget": -6, "security": 12, "agility": -2, "reliability": 4 }
+        },
+        {
+          "key": "B",
+          "text": "3-2-1-Backup-Strategie umsetzen",
+          "info": "3-2-1-Backup-Strategie → Drei Kopien deiner Daten, auf zwei verschiedenen Medien, eine Kopie außerhalb (z. B. in einer anderen Cloud).",
+          "effect": { "knowledge": 10, "budget": -8, "security": 10, "agility": 0, "reliability": 10 },
+          "items": ["Immutable Backups"]
+        },
+        {
+          "key": "C",
+          "text": "Datenlokation EU erzwingen (DSGVO)",
+          "info": "Datenlokation EU → Alle Daten bleiben in europäischen Rechenzentren, damit du die DSGVO einhältst.",
+          "effect": { "knowledge": 6, "budget": -4, "security": 8, "agility": -1, "reliability": 2 }
+        },
+        {
+          "key": "D",
+          "text": "Zero-Trust-Zugriff & MFA einführen",
+          "info": "Zero-Trust & MFA → Niemand wird automatisch vertraut. Jeder Zugriff wird geprüft und zusätzlich mit Mehrfaktor-Authentifizierung gesichert.",
+          "effect": { "knowledge": 8, "budget": -5, "security": 12, "agility": -1, "reliability": 4 }
+        }
+      ],
+      "randomEvent": {
+        "text": "Ransomware-Angriff simuliert — greift dein Backup?",
+        "effect": { "knowledge": 6, "budget": 0, "security": 6, "agility": -2, "reliability": 8 }
+      }
+    },
+    {
+      "title": "Kapitel 4: Skalierbarkeit & Ressourcennutzung",
+      "description": "Ein Launch-Event steht an. Nutzerzahlen schwanken stark. Wie skalierst du effizient?",
+      "choices": [
+        {
+          "key": "A",
+          "text": "Auto-Scaling nach Metriken",
+          "info": "Auto-Scaling → Die Cloud startet automatisch mehr Server, wenn viele Nutzer online sind, und fährt sie wieder runter, wenn es ruhig ist.",
+          "effect": { "knowledge": 10, "budget": -6, "security": 0, "agility": 12, "reliability": 8 }
+        },
+        {
+          "key": "B",
+          "text": "Vorab große Instanzen reservieren",
+          "info": "Große Instanzen reservieren → Du buchst von Anfang an sehr viel Kapazität. Sicherheitshalber, aber teuer und oft unnötig.",
+          "effect": { "knowledge": 4, "budget": -12, "security": 0, "agility": -2, "reliability": 10 }
+        },
+        {
+          "key": "C",
+          "text": "Observability einführen",
+          "info": "Observability → Du sammelst Metriken, Logs und Traces, um zu sehen, was im System passiert. Hilft beim Erkennen von Problemen.",
+          "effect": { "knowledge": 10, "budget": -6, "security": 2, "agility": 6, "reliability": 8 },
+          "items": ["Dashboards"]
+        },
+        {
+          "key": "D",
+          "text": "Kostenoptimierung",
+          "info": "Kostenoptimierung → Du analysierst, wo unnötige Kosten entstehen, und passt Ressourcen an. Spart Geld, erfordert aber Planung.",
+          "effect": { "knowledge": 8, "budget": 6, "security": -1, "agility": 4, "reliability": 4 }
+        }
+      ],
+      "randomEvent": {
+        "text": "Spitzenlast! Deine Architektur wird getestet.",
+        "effect": { "knowledge": 6, "budget": 0, "security": 0, "agility": 6, "reliability": 10 }
+      }
+    },
+    {
+      "title": "Kapitel 5: Anwendungsbereiche & Einsatzszenarien",
+      "description": "Wähle, welche Produktlinie zuerst live geht — jede verlangt andere Eigenschaften.",
+      "choices": [
+        {
+          "key": "A",
+          "text": "Echtzeit-Analytics-Dashboard für IoT-Sensoren",
+          "info": "Echtzeit-Analytics für IoT → Sensoren liefern Datenströme (z. B. aus Fabriken oder Autos), die sofort verarbeitet und visualisiert werden müssen.",
+          "effect": { "knowledge": 12, "budget": -10, "security": 2, "agility": 8, "reliability": 6 },
+          "items": ["Stream-Processing"]
+        },
+        {
+          "key": "B",
+          "text": "ML-Modell-Serving für Empfehlungen",
+          "info": "ML-Modell-Serving → Trainierte KI-Modelle werden in der Cloud bereitgestellt und beantworten Anfragen in Echtzeit (z. B. Produktempfehlungen).",
+          "effect": { "knowledge": 14, "budget": -12, "security": 2, "agility": 10, "reliability": 6 },
+          "items": ["Feature Store"]
+        },
+        {
+          "key": "C",
+          "text": "Klassisches Web-CRM als SaaS integrieren",
+          "info": "Web-CRM als SaaS → Ein fertiges Kundenmanagement-System aus der Cloud. Schnell integriert, Standardfunktionen sofort nutzbar.",
+          "effect": { "knowledge": 8, "budget": -6, "security": 2, "agility": 10, "reliability": 6 }
+        },
+        {
+          "key": "D",
+          "text": "Event-getriebene Serverless-API für Mobile App",
+          "info": "Serverless-API → Eine API, die nur dann läuft, wenn Nutzer sie aufrufen. Spart Kosten und skaliert automatisch mit der Nutzung",
+          "effect": { "knowledge": 12, "budget": -8, "security": 2, "agility": 12, "reliability": 6 }
+        }
+      ]
+    }
+  ]
+}

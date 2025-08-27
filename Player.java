@@ -18,6 +18,10 @@ public class Player {
         if (!inventory.contains(item)) inventory.add(item);
     }
 
+    public void addItems(ArrayList<String> items) {
+        inventory.addAll(items);
+    }
+
     public void adjust(int know, int bud, int sec, int agi, int rel) {
         knowledge = Math.max(0, knowledge + know);
         budget = Math.max(0, budget + bud);
